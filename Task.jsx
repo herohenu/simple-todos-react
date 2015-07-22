@@ -27,10 +27,8 @@ Task = React.createClass({
             (this.props.task.private ? "private" : "");
         return (
             <li className={taskClassName}>
-                    <button className="delete" onClick={this.deleteThisTask}>
-            &times;
-            </button>
 
+            <button className="delete" onClick={this.deleteThisTask}>&times;</button>
             <input
             type="checkbox"
             readOnly={true}
@@ -43,7 +41,7 @@ Task = React.createClass({
             </button>
             ) : ''}
 
-<span className="text">
+            <span className="text">
                 <strong>{this.props.task.username}</strong>: {this.props.task.text}
             </span>
 
