@@ -22,7 +22,9 @@ Task = React.createClass({
         //return (
         //    <li>{this.props.task.text}</li>
         //);
-        const taskClassName = this.props.task.checked ? "checked" : "";
+        // Add "checked" and/or "private" to the className when needed
+        const taskClassName = (this.props.task.checked ? "checked" : "") + " " +
+            (this.props.task.private ? "private" : "");
         return (
             <li className={taskClassName}>
                     <button className="delete" onClick={this.deleteThisTask}>
