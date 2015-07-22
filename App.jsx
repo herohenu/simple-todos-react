@@ -13,7 +13,8 @@ App = React.createClass({
     // Loads items from the Tasks collection and puts them on this.data.tasks
     getMeteorData() {
     return {
-        tasks: Tasks.find({}).fetch()
+        //tasks: Tasks.find({}).fetch()
+        tasks: Tasks.find({}, {sort: {createdAt: -1}}).fetch()
     }
 },
 
@@ -24,7 +25,20 @@ renderTasks() {
             return <Task key={task._id} task={task} />;
 });
 },
+handleSubmit(event) {
+    event.preventDefault();
 
+    // Find the text field via the React ref
+    var text = React.findDOMNode(this.refs.textInput).value.trim();
+
+    Tasks.insert({
+        text: text,
+        createdAt: new Date() // current time
+    });
+
+    // Clear form
+    React.findDOMNode(this.refs.textInput).value = "";
+},
 render() {
     return (
         <div className="container">
