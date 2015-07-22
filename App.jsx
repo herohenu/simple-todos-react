@@ -26,7 +26,8 @@ App = React.createClass({
     return {
         //tasks: Tasks.find({}).fetch()
         tasks: Tasks.find(query, {sort: {createdAt: -1}}).fetch(),
-        incompleteCount: Tasks.find({checked: {$ne: true}}).count()
+        incompleteCount: Tasks.find({checked: {$ne: true}}).count(),
+        currentUser: Meteor.user()
     }
 },
 
@@ -45,7 +46,9 @@ handleSubmit(event) {
 
     Tasks.insert({
         text: text,
-        createdAt: new Date() // current time
+        createdAt: new Date(), // current time
+        owner: Meteor.userId(),           // _id of logged in user
+        username: Meteor.user().username  // username of logged in user
     });
 
     // Clear form
@@ -72,9 +75,16 @@ render() {
         </label>
 
         <AccountsUIWrapper />
+
+        { this.data.currentUser ?
         <form className="new-task" onSubmit={this.handleSubmit} >
-            <input type="text" ref="textInput" placeholder="Type to add new tasks" />
-        </form>
+        <input
+        type="text"
+        ref="textInput"
+        placeholder="Type to add new tasks" />
+            </form> : ''
+        }
+
         </header>
 
     <ul>

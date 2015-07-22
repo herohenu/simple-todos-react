@@ -9,3 +9,5 @@ autopublish
 insecure
 #reactjs:react
 react
+accounts-ui
+accounts-password
